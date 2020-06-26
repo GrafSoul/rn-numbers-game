@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     inputContainer: {
+        marginBottom: 10,
         padding: 20,
         width: 300,
         maxWidth: '80%',
