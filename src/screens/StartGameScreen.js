@@ -6,17 +6,65 @@ import {
     Button,
     TouchableWithoutFeedback,
     Keyboard,
+    Alert,
 } from 'react-native';
 
 import Card from '../components/Card.js';
 import Input from '../components/Input';
+import NumberContainer from '../components/NumberContainer';
 import Colors from '../constants/colors';
 
-const StartGameScreen = () => {
+const StartGameScreen = ({ onStartGame }) => {
+    let confirmedOutput;
     const [enteredValue, setEnteredValue] = useState('');
+    const [confirmed, setConfirmed] = useState(false);
+    const [selectedNumber, setSelectedNumber] = useState();
+
     const numberInputHandler = (inputText) => {
         setEnteredValue(inputText.replace(/[^0-9]/g, ''));
     };
+
+    const resetInputHandler = () => {
+        setEnteredValue('');
+        setConfirmed(false);
+    };
+
+    const confirmInputHandler = () => {
+        const chosenNumber = parseInt(enteredValue);
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert(
+                'Invalid Number',
+                'Number has to be a number between 1 and 99',
+                [
+                    {
+                        text: 'OKey',
+                        style: 'destructive',
+                        onPress: resetInputHandler,
+                    },
+                ],
+            );
+            return;
+        }
+        setConfirmed(true);
+        setSelectedNumber(chosenNumber);
+        setEnteredValue('');
+        Keyboard.dismiss();
+    };
+
+    if (confirmed) {
+        confirmedOutput = (
+            <Card style={styles.summaryContainer}>
+                <Text style={styles.titleStep}>You selected</Text>
+                <NumberContainer>{selectedNumber}</NumberContainer>
+                <Button
+                    title="Start Game"
+                    color={Colors.active}
+                    onPress={() => onStartGame(selectedNumber)}
+                />
+            </Card>
+        );
+    }
+
     return (
         <TouchableWithoutFeedback
             onPress={() => {
@@ -26,7 +74,7 @@ const StartGameScreen = () => {
             <View style={styles.screen}>
                 <Text style={styles.title}> Start a New Game! </Text>
                 <Card style={styles.inputContainer}>
-                    <Text> Select a Number </Text>
+                    <Text style={styles.titleStep}> Select a Number </Text>
                     <Input
                         style={styles.input}
                         blurOnSubmit
@@ -41,19 +89,20 @@ const StartGameScreen = () => {
                         <View style={styles.btn}>
                             <Button
                                 title="Reset"
-                                onPress={() => {}}
+                                onPress={resetInputHandler}
                                 color={Colors.accent}
                             />
                         </View>
                         <View style={styles.btn}>
                             <Button
                                 title="Confirm"
-                                onPress={() => {}}
+                                onPress={confirmInputHandler}
                                 color={Colors.primary}
                             />
                         </View>
                     </View>
                 </Card>
+                {confirmedOutput}
             </View>
         </TouchableWithoutFeedback>
     );
@@ -69,6 +118,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingBottom: 10,
         marginVertical: 10,
+    },
+    titleStep: {
+        fontSize: 18,
     },
     inputContainer: {
         marginBottom: 10,
@@ -88,6 +140,13 @@ const styles = StyleSheet.create({
     input: {
         width: 50,
         textAlign: 'center',
+        marginBottom: 20,
+    },
+    summaryContainer: {
+        width: 300,
+        marginTop: 20,
+        padding: 20,
+        alignItems: 'center',
     },
 });
 
