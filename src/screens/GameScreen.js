@@ -58,7 +58,7 @@ const GameScreen = ({ userChoice, onGameOver }) => {
     };
     return (
         <View style={styles.screen}>
-            <Text>Opponent Guess</Text>
+            <Text style={styles.opponent}>Opponent Guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
                 <Button
@@ -81,6 +81,10 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         alignItems: 'center',
+    },
+    opponent: {
+        fontSize: 18,
+        fontFamily: 'open-sans',
     },
     buttonContainer: {
         padding: 20,

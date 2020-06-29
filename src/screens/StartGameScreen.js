@@ -118,9 +118,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingBottom: 10,
         marginVertical: 10,
+        fontFamily: 'open-sans-bold',
     },
     titleStep: {
         fontSize: 18,
+        fontFamily: 'open-sans',
     },
     inputContainer: {
         marginBottom: 10,
