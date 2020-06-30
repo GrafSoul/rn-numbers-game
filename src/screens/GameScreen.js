@@ -17,6 +17,13 @@ const generateRandomBetween = (min, max, exclude) => {
     }
 };
 
+// const renderListItem = (listLength, itemData) => (
+//     <View style={styles.listItem}>
+//       <BodyText>#{listLength - itemData.index}</BodyText>
+//       <BodyText>{itemData.item}</BodyText>
+//     </View>
+//   );
+
 const renderListItem = (value, index, numOfRound) => (
     <View key={index} style={styles.listItem}>
         <Text style={styles.listText}>#{numOfRound}</Text>
@@ -86,6 +93,12 @@ const GameScreen = ({ userChoice, onGameOver }) => {
                         ),
                     )}
                 </ScrollView>
+                {/* <FlatList
+                    keyExtractor={item => item}
+                    data={pastGuesses}
+                    renderItem={renderListItem.bind(this, pastGuesses.length)}
+                    contentContainerStyle={styles.list}
+                    /> */}
             </View>
         </View>
     );
@@ -131,6 +144,25 @@ const styles = StyleSheet.create({
     listText: {
         fontFamily: 'open-sans',
     },
+    // listContainer: {
+    //     flex: 1,
+    //     width: '60%',
+    // },
+    // list: {
+    //     flexGrow: 1,
+    //     // alignItems: 'center',
+    //     justifyContent: 'flex-end',
+    // },
+    // listItem: {
+    //     borderColor: '#ccc',
+    //     borderWidth: 1,
+    //     padding: 15,
+    //     marginVertical: 10,
+    //     backgroundColor: 'white',
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-between',
+    //     width: '100%',
+    // },
 });
 
 export default GameScreen;
