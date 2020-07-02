@@ -3,9 +3,9 @@ import { Text, View, StyleSheet } from 'react-native';
 
 import Colors from '../constants/colors';
 
-const NumberContainer = ({ children }) => {
+const NumberContainer = ({ children, style }) => {
     return (
-        <View style={styles.container}>
+        <View style={{ ...style, ...styles.container }}>
             <Text style={styles.number}>{children}</Text>
         </View>
     );
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         borderColor: Colors.accent,
         borderRadius: 10,
         padding: 10,
-        marginVertical: 15,
+        marginTop: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },

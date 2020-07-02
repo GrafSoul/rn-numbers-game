@@ -1,35 +1,44 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    Dimensions,
+    ScrollView,
+} from 'react-native';
 
 import Colors from '../constants/colors';
 import MainButton from '../components/MainButton';
 
 const GameOverScreen = ({ roundsNumber, userNumber, onRestart }) => {
     return (
-        <View style={styles.screen}>
-            <Text style={styles.text}>The Game is Over!</Text>
-            <View style={styles.imageContainer}>
-                <Image
-                    fadeDuration={1000}
-                    style={styles.image}
-                    source={require('../../assets/success.png')}
-                    // source={{
-                    //     uri:
-                    //         'https://uiaa-web.azureedge.net/wp-content/uploads/2017/12/2018_banner.jpg',
-                    // }}
-                    resizeMode="cover"
-                />
+        <ScrollView>
+            <View style={styles.screen}>
+                <Text style={styles.text}>The Game is Over!</Text>
+                <View style={styles.imageContainer}>
+                    <Image
+                        fadeDuration={1000}
+                        style={styles.image}
+                        source={require('../../assets/success.png')}
+                        // source={{
+                        //     uri:
+                        //         'https://uiaa-web.azureedge.net/wp-content/uploads/2017/12/2018_banner.jpg',
+                        // }}
+                        resizeMode="cover"
+                    />
+                </View>
+                <Text style={styles.numbers}>
+                    Your phone need{' '}
+                    <Text style={styles.highlight}>{roundsNumber}</Text> rounds
+                    to guess the number{' '}
+                    <Text style={styles.highlight}>{userNumber}</Text>
+                </Text>
+                <View style={styles.buttonContainer}>
+                    <MainButton onPress={onRestart}>NEW GAME</MainButton>
+                </View>
             </View>
-            <Text style={styles.numbers}>
-                Your phone need{' '}
-                <Text style={styles.highlight}>{roundsNumber}</Text> rounds to
-                guess the number{' '}
-                <Text style={styles.highlight}>{userNumber}</Text>
-            </Text>
-            <View style={styles.buttonContainer}>
-                <MainButton onPress={onRestart}>NEW GAME</MainButton>
-            </View>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -55,9 +64,9 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         marginVertical: 20,
-        width: 300,
-        height: 300,
-        borderRadius: 150,
+        width: Dimensions.get('window').width * 0.7,
+        height: Dimensions.get('window').width * 0.7,
+        borderRadius: (Dimensions.get('window').width * 0.7) / 2,
         borderColor: 'black',
         borderWidth: 2,
         overflow: 'hidden',
