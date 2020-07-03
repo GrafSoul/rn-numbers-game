@@ -8,6 +8,7 @@ const Card = ({ children, style }) => {
 const styles = StyleSheet.create({
     card: {
         alignItems: 'center',
+        justifyContent: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 3 },
         shadowRadius: 6,

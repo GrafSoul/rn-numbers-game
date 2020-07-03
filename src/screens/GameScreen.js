@@ -84,37 +84,36 @@ const GameScreen = ({ userChoice, onGameOver }) => {
         listContainerStyle = styles.listContainerBig;
     }
     return (
-        <ScrollView>
-            <View style={styles.screen}>
-                <Text style={styles.opponent}>Opponent Guess</Text>
+        <View style={styles.screen}>
+            <Text style={styles.opponent}>Opponent Guess</Text>
+
+            <Card style={styles.buttonContainer}>
+                <MainButton onPress={() => nextGuessHandler('lower')}>
+                    <Ionicons name="md-remove" size={24} color="white" />
+                </MainButton>
                 <NumberContainer>{currentGuess}</NumberContainer>
-                <Card style={styles.buttonContainer}>
-                    <MainButton onPress={() => nextGuessHandler('lower')}>
-                        <Ionicons name="md-remove" size={24} color="white" />
-                    </MainButton>
-                    <MainButton onPress={() => nextGuessHandler('greater')}>
-                        <Ionicons name="md-add" size={24} color="white" />
-                    </MainButton>
-                </Card>
-                <View style={listContainerStyle}>
-                    <ScrollView contentContainerStyle={styles.list}>
-                        {pastGuesses.map((guess, index) =>
-                            renderListItem(
-                                guess,
-                                index,
-                                pastGuesses.length - index,
-                            ),
-                        )}
-                    </ScrollView>
-                    {/* <FlatList
+                <MainButton onPress={() => nextGuessHandler('greater')}>
+                    <Ionicons name="md-add" size={24} color="white" />
+                </MainButton>
+            </Card>
+            <View style={listContainerStyle}>
+                <ScrollView contentContainerStyle={styles.list}>
+                    {pastGuesses.map((guess, index) =>
+                        renderListItem(
+                            guess,
+                            index,
+                            pastGuesses.length - index,
+                        ),
+                    )}
+                </ScrollView>
+                {/* <FlatList
                     keyExtractor={item => item}
                     data={pastGuesses}
                     renderItem={renderListItem.bind(this, pastGuesses.length)}
                     contentContainerStyle={styles.list}
                     /> */}
-                </View>
             </View>
-        </ScrollView>
+        </View>
     );
 };
 
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans',
     },
     buttonContainer: {
-        padding: 20,
+        padding: 15,
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: Dimensions.get('window').height > 600 ? 20 : 15,

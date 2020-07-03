@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text,
     StyleSheet,
@@ -23,6 +23,21 @@ const StartGameScreen = ({ onStartGame }) => {
     const [enteredValue, setEnteredValue] = useState('');
     const [confirmed, setConfirmed] = useState(false);
     const [selectedNumber, setSelectedNumber] = useState();
+    const [buttonWidth, setButtonWidth] = useState(
+        Dimensions.get('window').width / 3.5,
+    );
+
+    useEffect(() => {
+        const updateLayout = () => {
+            setButtonWidth(Dimensions.get('window').width / 3.5);
+        };
+
+        Dimensions.addEventListener('change', () => updateLayout);
+
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+        };
+    });
 
     const numberInputHandler = (inputText) => {
         setEnteredValue(inputText.replace(/[^0-9]/g, ''));
@@ -98,14 +113,14 @@ const StartGameScreen = ({ onStartGame }) => {
                                 value={enteredValue}
                             />
                             <View style={styles.buttonContainer}>
-                                <View style={styles.btn}>
+                                <View style={{ width: buttonWidth }}>
                                     <Button
                                         title="Reset"
                                         onPress={resetInputHandler}
                                         color={Colors.accent}
                                     />
                                 </View>
-                                <View style={styles.btn}>
+                                <View style={{ width: buttonWidth }}>
                                     <Button
                                         title="Confirm"
                                         onPress={confirmInputHandler}
@@ -151,10 +166,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 15,
     },
-    btn: {
-        // width: '45%',
-        width: Dimensions.get('window').width / 3.5,
-    },
+    // btn: {
+    //     // width: '45%',
+    //     width: Dimensions.get('window').width / 3.5,
+    // },
     input: {
         width: 50,
         textAlign: 'center',
